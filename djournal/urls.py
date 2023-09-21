@@ -22,5 +22,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', views.index),
     path('submissions/', views.submissions, name='submissions'),
-    path('search_submissions/', views.search_submissions, name='search_submissions')
+    path('search_submissions/', views.search_submissions, name='search_submissions'),
+    path('accounts/', include('django.contrib.auth.urls')),
     ]    
