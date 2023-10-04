@@ -3,11 +3,12 @@ from django.urls import include, path
 from django.contrib.auth.views import LoginView, LogoutView
 from submissions import views
 from django.views.generic.base import RedirectView
+from submissions.views import restrict_submissions
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", RedirectView.as_view(url="submissions/", permanent=False)),
-    path('submissions/', views.submissions, name='submissions'),
+    path('submissions/', views.restrict_submissions, name='submissions'),
     path('search_submissions/', views.search_submissions, name='search_submissions'),
     path('accounts/login/', LoginView.as_view(template_name='login.html'), name='login'),
 ]

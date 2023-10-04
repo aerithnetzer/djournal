@@ -11,6 +11,13 @@ from django.shortcuts import render
 from .models import Submission
 from django.db.models import Q
 
+from django.contrib.auth.decorators import user_passes_test
+
+@user_passes_test(lambda u: u.groups.filter(name='Editor').exists())
+def restrict_submissions(request):
+    submissions=Submission.objects.all()
+    return render(request, 'submissions.html', {'submissions':submissions})
+
 
 @login_required(login_url='/accounts/login/')
 def submissions(request):
