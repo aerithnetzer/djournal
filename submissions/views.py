@@ -35,5 +35,5 @@ def search_submissions(request):
     return render(request, 'submissions.html', {'submissions': submissions})
 
 
-def index(request):
-    return HttpResponse('Hi!')
+def home(request):
+    return render(request, 'home.html')

@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from MySQLdb import _mysql
+import MySQLdb
+db = _mysql.connect()
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -72,18 +76,24 @@ WSGI_APPLICATION = "djournal.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+MYSQL_PASSWORD = os.environ.get('MY_SQL_PASSWORD')
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'djournal',
         'USER': 'aerith',
-        'PASSWORD': '80968Trainer$@',
+        'PASSWORD': MYSQL_PASSWORD,
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
             'charset': 'utf8mb4',
+            'use_unicode': True,
+            'ssl': {'ssl': {'cert': '/path/to/cert.pem', 'key': '/path/to/key.pem', 'ca': '/path/to/ca.pem'}},
+            'client_flag': mysqlclient.constants.CLIENT.MULTI_STATEMENTS,
         },
+        'CONN_MAX_AGE': 600,
+        'ATOMIC_REQUESTS': True,
     }
 }
 
