@@ -7,7 +7,7 @@ from submissions.views import restrict_submissions
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", RedirectView.as_view(url="submissions/", permanent=False)),
+    path('', views.home),
     path('submissions/', views.restrict_submissions, name='submissions'),
     path('search_submissions/', views.search_submissions, name='search_submissions'),
     path('accounts/login/', LoginView.as_view(template_name='login.html'), name='login'),

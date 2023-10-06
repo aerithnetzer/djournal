@@ -42,5 +42,5 @@ def logout_view(request):
         return redirect('login')
 
 
-def index(request):
-    return HttpResponse('Hi!')
+def home(request):
+    return render(request, 'home.html')
