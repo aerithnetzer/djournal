@@ -34,6 +34,13 @@ def search_submissions(request):
         submissions = Submission.objects.all()
     return render(request, 'submissions.html', {'submissions': submissions})
 
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
+def logout_view(request):
+        logout(request)
+        return redirect('login')
+
 
 def index(request):
     return HttpResponse('Hi!')
