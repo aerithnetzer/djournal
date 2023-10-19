@@ -1,3 +1,4 @@
 djournal/__pycache__/
 submissions/__pycache__/
+submissions/files/*
 .vscode

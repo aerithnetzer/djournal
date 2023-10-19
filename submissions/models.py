@@ -17,6 +17,7 @@ class Submission(models.Model):
         choices=STATUS_CHOICES,
         default='pending'
     )
+    file_url = models.FileField(upload_to='submissions/')
 
     class Meta:
         app_label = 'submissions'
