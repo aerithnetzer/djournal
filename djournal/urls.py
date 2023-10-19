@@ -11,4 +11,6 @@ urlpatterns = [
     path('submissions/', views.restrict_submissions, name='submissions'),
     path('search_submissions/', views.search_submissions, name='search_submissions'),
     path('accounts/login/', LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', views.logout_view, name='logout_view'),
+    path('submit/', views.upload_file, name='submit'),
 ]

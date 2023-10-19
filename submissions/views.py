@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 
 # Create your views here.
 
@@ -34,6 +35,7 @@ def search_submissions(request):
         submissions = Submission.objects.all()
     return render(request, 'submissions.html', {'submissions': submissions})
 
+
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 
@@ -44,3 +46,27 @@ def logout_view(request):
 
 def home(request):
     return render(request, 'home.html')
+
+from django.shortcuts import render, redirect
+from django.core.files.storage import FileSystemStorage
+
+from .models import Submission
+
+def upload_file(request):
+    if request.method == 'POST' and request.FILES['myfile']:
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage(location='./submissions/files/')
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+        
+        # Create a new submission record in the database
+        submission = Submission(article_name=myfile.name, author_name=request.user.username, 
+                                file_url=uploaded_file_url, date_submitted=datetime.today().strftime('%Y-%m-%d'))
+        submission.save()
+        
+        return render(request, 'submit.html', {
+            'submit': uploaded_file_url
+        })
+    return render(request, 'submit.html')
+
+
