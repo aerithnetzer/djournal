@@ -1,0 +1,28 @@
+<!-- Form to add a new reviewer-->
+
+<!-- {% load static %} -->
+
+<!DOCTYPE html> 
+<html>
+<head>
+    <title>Add Reviewer</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    {% block content %}
+    <header>
+        {% include 'partials/nav.html' %}
+    </header>
+        <h1>Add Reviewer</h1>
+            <form action="{% url 'make_reviewer' %}" method="POST">
+                {% csrf_token %}
+                <label for="reviewer">Reviewer:</label>
+                <input type="text" name="reviewer" id="reviewer">
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password">
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+        {% endblock %}
+</html>
