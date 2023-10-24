@@ -1,0 +1,27 @@
+{% load static %}
+{% load static custom_tags %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Navigation Menu</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+        <nav>
+            <ul class="nav-links">
+                <li class="left"><a href="/">Home</a></li>
+                <li class="left"><a href="/submit">Submit</a></li>
+                {% if user.is_authenticated %}
+                {% if user|in_group:'Editor' %}
+                        <li class=left><a href="{% url 'submissions' %}">Editor View</a></li> 
+                        <li class=left><a href="#">Submitter View</a></li> 
+                {% endif %}
+                <li class="right"><a href="{% url 'logout_view' %}">Logout</a></li>
+            {% else %}
+                <li class="right"><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}
+            </ul>
+        </nav>
+    </body>
+</html>

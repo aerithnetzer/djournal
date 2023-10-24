@@ -1,0 +1,148 @@
+nav {
+    background-color: black;
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    display: inline-block;
+}
+
+nav li.left {
+    float: left;
+}
+
+nav li.right {
+    float: right;
+}
+
+nav li a {
+    display: block;
+    color: #fff;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav li a:hover {
+    background-color: #111;
+}
+
+body {
+    background-color: #6e6e6e;
+}
+
+/* Style the button */
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Style the dropdown content */
+  .dropdown-content {
+    display: block;
+    position: absolute;
+    z-index: 1;
+  }
+  
+  /* Show the dropdown content on hover */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {
+    background-color: black;
+  }
+
+.main {
+    margin-top: 50px;
+    padding: 20px;
+    text-align: center;
+    font-size: 30px;
+}
+
+td.pending {
+    background-color: yellow;
+}
+
+td.approved {
+    background-color: green;
+}
+
+td.rejected {
+    background-color: red;
+}
+
+body {
+    background-color: darkgrey;
+}
+.approved {
+    background-color: green;
+}
+.rejected {
+    background-color: red;
+}
+.pending {
+    background-color: orange;
+}
+h1, table {
+    margin: 0 auto;
+}
+table {
+    width: 80%; /* or any other value you prefer */
+}
+th, td {
+    text-align: center;
+}
+
+.search-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px;
+}
+.search-container input[type=text] {
+    padding: 6px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 3px;
+    width: 300px;
+}
+.search-container button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.search-container button:hover {
+    background-color: #45a049;
+}
+.logout-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 10px;
+}
+.logout-container button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.logout-container button:hover {
+    background-color: #d32f2f;
+}

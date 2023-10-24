@@ -1,0 +1,25 @@
+{% block content %}
+  <h1>My Submissions</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Date Submitted</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for submission in submissions %}
+        <tr>
+          <td>{{ submission.article_name }}</td>
+          <td>{{ submission.date_submitted }}</td>
+          <td>{{ submission.status }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="3">No submissions found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

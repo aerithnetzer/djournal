@@ -1,0 +1,30 @@
+<!-- See submission history of an article-->
+{% load static %}
+{% load static custom_tags %}
+
+<html>
+<head>
+    <title>Submission History</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    {% block content %}
+    <header>
+        {% include 'partials/nav.html' %}
+    </header>
+        <h1>Submission History</h1>
+        <table>
+            <tr>
+                <th>Reviewer</th>
+                <th>Comments</th>
+                <th>Status</th>
+            </tr>
+            {% for review in reviews %}
+            <tr>
+                <td>{{ review.reviewer }}</td>
+                <td>{{ review.comments }}</td>
+                <td>{{ review.status }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endblock %}

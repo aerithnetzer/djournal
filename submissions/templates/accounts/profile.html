@@ -1,0 +1,34 @@
+<!-- FILEPATH: /Users/aerith/Library/CloudStorage/OneDrive-NorthwesternUniversity/Documents/warlock/djournal/submissions/templates/accounts/profile.html -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>User Profile</title>
+    </head>
+    <body>
+        <h1>User Profile</h1>
+        <h2>{{ user.username }}</h2>
+        <p>Email: {{ user.email }}</p>
+        <p>First Name: {{ user.first_name }}</p>
+        <p>Last Name: {{ user.last_name }}</p>
+        <h2>Submission Status</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Submission ID</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for submission in submissions %}
+                <tr>
+                    <td>{{ submission.id }}</td>
+                    <td>{{ submission.title }}</td>
+                    <td>{{ submission.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>

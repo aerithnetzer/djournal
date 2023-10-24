@@ -1,24 +1,24 @@
-from django.shortcuts import render
-from django.http import HttpResponse
 from django.template import loader
+from django.contrib.auth import logout
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
-from datetime import datetime
-
-# Create your views here.
-
-# views.py
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.shortcuts import render, redirect
+from django.core.files.storage import FileSystemStorage
 from .models import Submission
 from django.db.models import Q
+from .models import Submission
 
-from django.contrib.auth.decorators import user_passes_test
+from datetime import datetime
 
-@user_passes_test(lambda u: u.groups.filter(name='Editor').exists())
+def index(request):
+    return render(request, 'index.html')
+
+@user_passes_test(lambda u: u.groups.filter(name='Editors').exists())
 def restrict_submissions(request):
-    submissions=Submission.objects.all()
-    return render(request, 'submissions.html', {'submissions':submissions})
-
+    if not request.user.is_authenticated:
+        return redirect('accounts/login/')
+    else:
+        return render(request, 'submissions.html', {'submissions':submissions})
 
 @login_required(login_url='/accounts/login/')
 def submissions(request):
@@ -35,23 +35,11 @@ def search_submissions(request):
         submissions = Submission.objects.all()
     return render(request, 'submissions.html', {'submissions': submissions})
 
-
-from django.contrib.auth import logout
-from django.shortcuts import redirect
-
 def logout_view(request):
         logout(request)
-        return redirect('login')
+        return redirect('accounts/login')
 
-
-def home(request):
-    return render(request, 'home.html')
-
-from django.shortcuts import render, redirect
-from django.core.files.storage import FileSystemStorage
-
-from .models import Submission
-
+@login_required(login_url='/accounts/login/')
 def upload_file(request):
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
@@ -64,9 +52,26 @@ def upload_file(request):
                                 file_url=uploaded_file_url, date_submitted=datetime.today().strftime('%Y-%m-%d'))
         submission.save()
         
-        return render(request, 'submit.html', {
+        return render(request, 'submit/confirm_submission.html', {
             'submit': uploaded_file_url
         })
-    return render(request, 'submit.html')
+    return render(request, 'submit/upload.html')
+
+@user_passes_test(lambda u: u.groups.filter(name='Reviewers').exists())
+def review_submission(request):
+    submissions = Submission.objects.all()
+    return render(request, 'review.html', {'submissions': submissions})
+
+def confirm_submssion(request):
+    return render(request, 'submit/confirm_submission.html')
+
+def submit(request):
+    return render(request, 'submit/submit.html')
+
+# View that allows a user to see all of their submissions - look up by username
+def my_submissions(request):
+    submissions = Submission.objects.filter(author_name=request.user.username)
+    return render(request, 'my_submissions.html', {'submissions': submissions})
+    
 
 

@@ -1,0 +1,39 @@
+{% load static %}
+
+<!--Assign a reviewer to a submission-->
+
+<html>
+<head>
+    <title>Assign Reviewer</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    {% block content %}
+    <header>
+        {% include 'partials/nav.html' %}
+    </header>
+        <h1>Assign Reviewer</h1>
+            <form action="{% url 'assign_reviewer' %}" method="POST">
+                {% csrf_token %}
+                <label for="reviewer">Reviewer:</label>
+                <select name="reviewer" id="reviewer">
+                    {% for reviewer in reviewers %}
+                        <option value="{{ reviewer.id }}">{{ reviewer.name }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <label for="submission_id">Submission ID:</label>
+                <input type="text" name="submission_id" id="submission_id">
+                <select name="article" id="article">
+                    {% for submission in submissions %}
+                        <option value="{{ submission.id }}">{{ submission.article_name }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password">
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+        {% endblock %}
+        </html>

@@ -1,0 +1,32 @@
+<!-- Use forms.py to upload a file -->
+
+{% block content %}
+
+    <div class="logout-container">
+        <form action="{% url 'logout_view' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+
+    <h1>Submit an article</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="author_name">First Author's Name:</label>
+        <input type="text" id="author_name" name="author_name" required>
+
+        <br>
+
+        <input type="checkbox" id="terms" name="terms" required>
+        <label for="terms">I agree to the terms and conditions.</label>
+
+        <br>
+
+        <button type="submit">Submit</button>
+        <input type="file" name="myfile">
+
+    </form>
+
+{% endblock %}
+
