@@ -1,6 +1,6 @@
 # djournal
 
-This project is an open source scholarly journal management and presentation system written in python. This uses the django > mysql > html stack to keep it simple and in as little boilerplate as possible.
+This project is an open source scholarly journal management and presentation system written in python. This uses the django > mysql > vue stack to keep it simple and in as little boilerplate as possible.
 
 ## Submissions App
 
