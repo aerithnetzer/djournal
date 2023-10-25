@@ -1,3 +1,10 @@
 <!--Confirm submission-->
-
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'submissions/static/styles.css' %}">
+</head>
+<header>
+    {% include 'partials/nav.html' %}
+</header>
 <h1>Confirmed submission</h1>

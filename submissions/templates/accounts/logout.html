@@ -1,11 +1,18 @@
 <!-- FILEPATH: /Users/aerith/Library/CloudStorage/OneDrive-NorthwesternUniversity/Documents/warlock/djournal/submissions/templates/accounts/logout.html -->
 <!DOCTYPE html>
+{% load static %}
+{% block content %}
 <html>
     <head>
         <title>Logout</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'submissions/static/styles.css' %}">
     </head>
+    <header>
+        {% include 'partials/nav.html' %}
+    </header>
     <body>
         <h1>Thank you for visiting!</h1>
         <p>Click <a href="/">here</a> to return to the homepage.</p>
     </body>
 </html>
+{% endblock %}

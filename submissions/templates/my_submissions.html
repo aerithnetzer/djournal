@@ -1,4 +1,12 @@
 {% block content %}
+{% load static %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'submissions/static/styles.css' %}">
+</head>
+<html>
+    <header>
+        {% include 'partials/nav.html' %}
+    </header>
   <h1>My Submissions</h1>
   <table>
     <thead>
@@ -22,4 +30,5 @@
       {% endfor %}
     </tbody>
   </table>
+</html>
 {% endblock %}

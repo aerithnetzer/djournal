@@ -1,15 +1,14 @@
 <!-- FILEPATH: /Users/aerith/warlock/djournal/submissions/templates/home.html -->
-
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
         <title>Home Page</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'submissions/static/styles.css' %}">
     </head>
     <body>
         <header>
-            <header>
                 {% include 'partials/nav.html' %}
-            </header>
         </header>
         <main>
             <h1>Welcome to our Journal</h1>
@@ -22,9 +21,4 @@
 </html>
 <head>
     <title>Home Page</title>
-    <style>
-        body {
-            background-color: darkgrey;
-        }
-    </style>
 </head>

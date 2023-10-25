@@ -7,8 +7,9 @@ from django.core.files.storage import FileSystemStorage
 from .models import Submission
 from django.db.models import Q
 from .models import Submission
-
+from submissions.forms import CreateAccount
 from datetime import datetime
+from django.contrib.auth.models import Group
 
 def index(request):
     return render(request, 'index.html')
@@ -23,7 +24,8 @@ def restrict_submissions(request):
 @login_required(login_url='/accounts/login/')
 def submissions(request):
     submissions = Submission.objects.all()
-    return render(request, 'submissions.html', {'submissions': submissions})
+    print(len(submissions))
+    return render(request, 'submissions.html', {'submissions':submissions})
 
 def search_submissions(request):
     query = request.GET.get('search')
@@ -35,11 +37,13 @@ def search_submissions(request):
         submissions = Submission.objects.all()
     return render(request, 'submissions.html', {'submissions': submissions})
 
+
 def logout_view(request):
         logout(request)
         return redirect('accounts/login')
 
 @login_required(login_url='/accounts/login/')
+@user_passes_test(lambda u: u.groups.filter(name = 'Submitters').exists())
 def upload_file(request):
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
@@ -62,6 +66,8 @@ def review_submission(request):
     submissions = Submission.objects.all()
     return render(request, 'review.html', {'submissions': submissions})
 
+from django.http import HttpResponse
+
 def confirm_submssion(request):
     return render(request, 'submit/confirm_submission.html')
 
@@ -72,6 +78,24 @@ def submit(request):
 def my_submissions(request):
     submissions = Submission.objects.filter(author_name=request.user.username)
     return render(request, 'my_submissions.html', {'submissions': submissions})
-    
 
-
+def create_account(request):
+    if request.method == 'POST':
+        form = CreateAccount(request.POST)
+        if form.is_valid():
+            user = User.objects.create_user(
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password'],
+                first_name=form.cleaned_data['first_name'],
+                last_name=form.cleaned_data['last_name']
+            )
+            user.save()
+            group = Group.objects.get(name='Submitters')
+            user.groups.add(group)
+            return redirect('my_submissions')
+        else:
+            form = CreateAccount()
+            return render(request, 'accounts/create_account.html', {'form': form})
+    else:
+        form = CreateAccount()
+        return render(request, 'accounts/create_account.html', {'form': form})

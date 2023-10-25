@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+{% block content %}
+  <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'submissions/static/styles.css' %}">
+  </head>
+<html>
+<head>
+    <title>Create Account</title>
+</head>
+<body>
+    <header>
+        {% include 'partials/nav.html' %}
+    </header>
+    <h1>Create Account</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="id_username">Username:</label>
+        {{ form.username }}
+        <br>
+        <label for="id_password">Password:</label>
+        {{ form.password }}
+        <br>
+        <label for="id_confirm_password">Confirm Password:</label>
+        {{ form.confirm_password }}
+        <br>
+        <label for="id_first_name">First Name:</label>
+        {{ form.first_name }}
+        <br>
+        <label for="id_last_name">Last Name:</label>
+        {{ form.last_name }}
+        <br>
+        <label for="id_agree_to_terms">Agree to Terms:</label>
+        {{ form.agree_to_terms }}
+        <br>
+        <button type="submit">Create Account</button>
+    </form>
+</body>
+</html>
+{% endblock %}
