@@ -1,18 +1,12 @@
-<style>
-  body {
-    background-color: grey;
-  }
-  .login-container {
-    text-align: center;
-  }
-  .login-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-</style>
-
+{% load static %}
 {% block content %}
+  <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'submissions/static/styles.css' %}">
+  </head>
+  <html>
+    <header>
+        {% include 'partials/nav.html' %}
+    </header>
   <div class="login-container">
     {% if form.errors %}
       <p class="error-message">Your username and password didn't match. Please try again.</p>
@@ -44,5 +38,7 @@
       </div>
       <input type="hidden" name="next" value="{{ next }}">
     </form>
+    <p>Don't have an account? <a href="{% url 'create_account' %}">Sign up</a></p>
   </div>
+  </html>
 {% endblock %}

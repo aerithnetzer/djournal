@@ -1,12 +1,14 @@
 <!-- FILEPATH: /Users/aerith/warlock/djournal/submissions/templates/submissions.html -->
-
 <!DOCTYPE html>
+{% load static %}
 <html>
-    {% load static %}
-    <head>
-        <title>Assign Reviewer</title>
-        <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
-    </head>
+<head>
+    <title>Submissions</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'submissions/static/styles.css' %}">
+</head>
+<header>
+    {% include 'partials/nav.html' %}
+</header>
 <body>
     {% block content %}
         <div class="logout-container">

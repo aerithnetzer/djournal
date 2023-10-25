@@ -7,11 +7,12 @@ from django.views.generic.base import RedirectView
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', views.index, name='index'),
-    path('submissions/', views.restrict_submissions, name='submissions'),
+    path('submissions/', views.submissions, name='submissions'),
     path('search_submissions/', views.search_submissions, name='search_submissions'),
     path('accounts/login/', LoginView.as_view(template_name='accounts/login.html'), name='login'),
     path('logout/', LogoutView.as_view(template_name='accounts/logout.html'), name='logout_view'),
     path('submit/', views.upload_file, name='upload_file'),
     path('accounts/profile/', RedirectView.as_view(url='/submissions/')),
     path('my_submissions/', views.my_submissions, name='my_submissions'),
+    path('accounts/create_account/', views.create_account, name='create_account'),
 ]

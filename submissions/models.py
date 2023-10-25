@@ -1,6 +1,4 @@
 # Create your models here.
-# models.py
-
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Permission
@@ -22,12 +20,13 @@ class Submission(models.Model):
         choices=STATUS_CHOICES,
         default='pending'
     )
-    file_url = models.FileField(upload_to='submissions/')
+    file_data = models.BinaryField()
+    file_url = models.CharField(max_length=255)
 
     class Meta:
         app_label = 'submissions'
         db_table = 'submissions'
-
+    
 class Review(models.Model):
     submission = models.ForeignKey(Submission, on_delete=models.CASCADE)
     reviewer_name = models.CharField(max_length=255)
@@ -47,3 +46,9 @@ class Review(models.Model):
     class Meta:
         app_label = 'submissions'
         db_table = 'reviews'
+
+from django.contrib.auth.models import Group
+
+editors_group, created = Group.objects.get_or_create(name='Editors')
+reviewers_group, created = Group.objects.get_or_create(name='Reviewers')
+submitter_group, created = Group.objects.get_or_create(name='Submitters')

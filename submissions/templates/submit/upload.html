@@ -1,13 +1,15 @@
 <!-- Use forms.py to upload a file -->
 
 {% block content %}
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'submissions/static/styles.css' %}">
+    </head>
 
-    <div class="logout-container">
-        <form action="{% url 'logout_view' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Logout</button>
-        </form>
-    </div>
+    <header>
+        {% include 'partials/nav.html' %}
+    </header>
 
     <h1>Submit an article</h1>
 
@@ -27,6 +29,5 @@
         <input type="file" name="myfile">
 
     </form>
-
+</html>
 {% endblock %}
-
