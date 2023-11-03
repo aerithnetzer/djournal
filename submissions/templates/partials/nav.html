@@ -14,10 +14,12 @@
                 <li class="left"><a href="/submit">Submit</a></li>
                 {% if user.is_authenticated %}
                 {% if user|in_group:'Editors' %}
-                        <li class=left><a href="{% url 'submissions' %}">Editor View</a></li> 
-                        <li class=left><a href="#">Submitter View</a></li> 
+                    <li class=left><a href="{% url 'submissions' %}">Editor View</a></li> 
+                    <li class=left><a href="{% url 'my_submissions'}">Submitter View</a></li> 
                 {% elif user|in_group:'Submitters' %}
-                        <li class=left><a href="#">My Submissions</a></li> 
+                    <li class=left><a href="{% url 'my_submissions'}">My Submissions</a></li>
+                {% elif user|in_group:'Reviewers' %}
+                    <li class=left><a href="#">My Reviews</a></li>
                 {% endif %}
                 <li class="right"><a href="{% url 'logout_view' %}">Logout</a></li>
             {% else %}

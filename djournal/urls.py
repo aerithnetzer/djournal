@@ -15,4 +15,6 @@ urlpatterns = [
     path('accounts/profile/', RedirectView.as_view(url='/submissions/')),
     path('my_submissions/', views.my_submissions, name='my_submissions'),
     path('accounts/create_account/', views.create_account, name='create_account'),
-]
+    path('edit/assign_reviewer/<int:submission_id>/', views.assign_reviewer, name='assign_reviewer'),
+    path('review/review_submission/<int:submission_id>/', views.review_submission, name='review_submission'),
+    ]

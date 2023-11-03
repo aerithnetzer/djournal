@@ -1,0 +1,71 @@
+{% load static %}
+
+<!--Assign a reviewer to a submission-->
+
+<html>
+<head>
+    <title>Assign Reviewer</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<header>
+    {% include 'partials/nav.html' %}
+</header>
+<body>
+    {% block content %}
+
+        <h1>Assign Reviewer</h1>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="user_type">Select an option:</label>
+                <input type="radio" id="existing_user" name="user_type" value="existing_user" checked>
+                <label for="existing_user">Select Existing User</label>
+                <input type="radio" id="new_user" name="user_type" value="new_user">
+                <label for="new_user">Create New User</label>
+                <br>
+                <label for="reviewer">Reviewer:</label>
+                <select name="reviewer" id="reviewer" class="select2">
+                    {% for user in group_reviewers.user_set.all %}
+                        <option value="{{ user.id }}">{{ user.username }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <label for="submission_id">Submission ID:</label>
+                <input type="text" name="submission_id" id="submission_id">
+                <select name="article" id="article">
+                    {% for submission in submissions %}
+                        <option value="{{ submission.id }}">{{ submission.article_name }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <div id="new_user_fields" style="display:none;">
+                    <label for="new_username">Username:</label>
+                    <input type="text" name="new_username" id="new_username">
+                    <br>
+                    <label for="new_email">Email:</label>
+                    <input type="email" name="new_email" id="new_email">
+                    <br>
+                    <label for="new_password">Password:</label>
+                    <input type="password" name="new_password" id="new_password">
+                    <br>
+                </div>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password">
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+        {% endblock %}
+
+        <script>
+            const existingUserRadio = document.getElementById('existing_user');
+            const newUserRadio = document.getElementById('new_user');
+            const newUserFields = document.getElementById('new_user_fields');
+
+            existingUserRadio.addEventListener('change', () => {
+            newUserFields.style.display = 'none';});
+
+            newUserRadio.addEventListener('change', () => {
+                newUserFields.style.display = 'block';
+            });
+        </script>
+    </body>
+</html>

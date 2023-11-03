@@ -1,0 +1,16 @@
+
+
+<!-- Include nav partial -->
+{% include 'partials/nav.html' %}
+
+<!-- Link to submissions page -->
+<a href="/submissions">View Submissions</a>
+
+<!-- Form to assign a reviewer -->
+<form action="/assign_reviewer" method="POST">
+    <label for="submission_id">Submission ID:</label>
+    <input type="text" id="submission_id" name="submission_id">
+    <label for="reviewer_id">Reviewer ID:</label>
+    <input type="text" id="reviewer_id" name="reviewer_id">
+    <input type="submit" value="Assign Reviewer">
+</form>

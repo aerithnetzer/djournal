@@ -4,12 +4,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
-from .models import Submission
+from .models import Submission, Review
 from django.db.models import Q
 from .models import Submission
 from submissions.forms import CreateAccount
 from datetime import datetime
 from django.contrib.auth.models import Group
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseForbidden
 
 def index(request):
     return render(request, 'index.html')
@@ -22,6 +24,7 @@ def restrict_submissions(request):
         return render(request, 'submissions.html', {'submissions':submissions})
 
 @login_required(login_url='/accounts/login/')
+@user_passes_test(lambda u: u.groups.filter(name='Editors').exists())
 def submissions(request):
     submissions = Submission.objects.all()
     print(len(submissions))
@@ -61,18 +64,23 @@ def upload_file(request):
         })
     return render(request, 'submit/upload.html')
 
+@login_required(login_url='/accounts/login/')
+@user_passes_test(lambda u: u.groups.filter(name='Editors').exists())
+def assign_reviewer(request, submission_id):
+    submission = get_object_or_404(Submission, id=submission_id)
+    if request.method == 'POST':
+        reviewers = request.POST.getlist('reviewers')  # getlist for multiple values
+        for reviewer_id in reviewers:
+            reviewer = get_object_or_404(User, id=reviewer_id)
+            submission.reviewers.add(reviewer)
+        return redirect('submissions')
+    return render(request, 'edit/assign_reviewer.html')
+
 @user_passes_test(lambda u: u.groups.filter(name='Reviewers').exists())
-def review_submission(request):
-    submissions = Submission.objects.all()
-    return render(request, 'review.html', {'submissions': submissions})
-
-from django.http import HttpResponse
-
-def confirm_submssion(request):
-    return render(request, 'submit/confirm_submission.html')
-
-def submit(request):
-    return render(request, 'submit/submit.html')
+def review_submission(request, submission_id):
+    submission = get_object_or_404(Submission, id=submission_id)
+    if request.user not in submission.reviewers.all():
+        return HttpResponseForbidden("You are not authorized to review this submission.")
 
 # View that allows a user to see all of their submissions - look up by username
 def my_submissions(request):

@@ -16,7 +16,7 @@
         {% include 'partials/nav.html' %}
     </header>
         <h1>Write Review Comments</h1>
-        <form action="{% url 'write_review_comments' submission.id %}" method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <label for="comments">Comments:</label>
             <textarea name="comments" id="comments" rows="10" cols="50"></textarea>
@@ -25,6 +25,7 @@
             <select name="status" id="status">
                 <option value="approved">Approved</option>
                 <option value="rejected">Rejected</option>
+                <option value="pending">Pending</option>
             </select>
             <br>
             <input type="submit" value="Submit">

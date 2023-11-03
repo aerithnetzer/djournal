@@ -32,20 +32,21 @@
                     <th>Author</th>
                     <th>Date</th>
                     <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for submission in submissions %}
-                    <tr>
-                        <td>{{ submission.id }}</td>
-                        <td>{{ submission.author_name }}</td>
-                        <td>{{ submission.article_name }}</td>
-                        <td>{{ submission.date_submitted }}</td>
-                        <td class="{% if submission.status == 'approved' %}approved{% elif submission.status == 'rejected' %}rejected{% else %}pending{% endif %}">{{ submission.status }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% endblock %}
-</body>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for submission in submissions %}
+                                    <tr>
+                                        <td>{{ submission.id }}</td>
+                                        <td>{{ submission.author_name }}</td>
+                                        <td>{{ submission.article_name }}</td>
+                                        <td>{{ submission.date_submitted }}</td>
+                                        <td class="{% if submission.status == 'approved' %}approved{% elif submission.status == 'rejected' %}rejected{% else %}pending{% endif %}">{{ submission.status }}</td>
+                                        <td><a href="{% url 'assign_reviewer' submission.id %}">Assign Reviewer</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endblock %}
+                </body>
 </html>
